@@ -18,5 +18,3 @@ FRONT-END:
       todos com o resultado PASS.
      
     O arquivo com o codigo esta em DesafioQA_3_Intern_NewModel -> Frontend_cypress_desafio -> cypress -> e2e -> Login_teste.cy.js
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
