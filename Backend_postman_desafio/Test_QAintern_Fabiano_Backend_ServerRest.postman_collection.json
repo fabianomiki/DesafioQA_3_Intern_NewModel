@@ -1,0 +1,306 @@
+{
+	"info": {
+		"_postman_id": "2ba75f70-84ea-4b9e-9d57-f9784d04f9f3",
+		"name": "Test_QAintern_ServerRest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33992609"
+	},
+	"item": [
+		{
+			"name": "API_usuarios",
+			"item": [
+				{
+					"name": "CRUD_API_usuarios",
+					"item": [
+						{
+							"name": "Create - Cadastrar_usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"user_id\",jsonResponse._id);\r",
+											"//Adiciona o numero(id) na variavel user_id automaticamente.\r",
+											"\r",
+											"pm.test(\"Status code is 201 Created OK!\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"}); //Verifica se o status code retornado é 201\r",
+											"\r",
+											"pm.test(\"Validacao de mensagem SUCESSO\", function (){\r",
+											"    pm.expect(jsonResponse.message).to.equal(\"Cadastro realizado com sucesso\")\r",
+											"}); //Verifica se no campo message do body tem a saida \"Cadastro realizado com sucesso\"\r",
+											"\r",
+											"pm.test(\"Validar se id not null\", function() {\r",
+											"    pm.expect(jsonResponse._id).to.not.equal(undefined)\r",
+											"});//Verifica se no campo _id é diferente de undefined."
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Fabiano Yuji\",\r\n  \"email\": \"teste_qa2424@qa.com.br\",\r\n  \"password\": \"teste123\",\r\n  \"administrador\": \"true\"\r\n}"
+								},
+								"url": {
+									"raw": "https://serverest.dev/usuarios",
+									"protocol": "https",
+									"host": [
+										"serverest",
+										"dev"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Read - Buscar_usuario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json();",
+											"postman.setEnvironmentVariable(\"user_id\", jsonResponse._id);",
+											"postman.setEnvironmentVariable(\"user_nome\", jsonResponse.nome);",
+											"postman.setEnvironmentVariable(\"user_password\", jsonResponse.password);",
+											"",
+											"pm.test(\"Status code is 200 OK!\", function () {",
+											"    pm.response.to.have.status(200);",
+											"}); // Verifica se o status code retornado é 200",
+											"",
+											"pm.test(\"E-mail and Password validation OK!\", function () {",
+											"    pm.expect(jsonResponse.nome).to.equal(pm.environment.get(\"user_nome\"));",
+											"    pm.expect(jsonResponse.password).to.equal(pm.environment.get(\"user_password\"));",
+											"});//Verifica se email e senha estao de acordo com o body.",
+											"",
+											"pm.test(\"Validacao de ID do usuario OK!\", function () {",
+											"    pm.expect(jsonResponse._id).to.equal(pm.environment.get(\"user_id\"))",
+											"});//Valida o id do usuario é igual a variavel global user_id."
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://serverest.dev/usuarios/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"serverest",
+										"dev"
+									],
+									"path": [
+										"usuarios",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update - Editar_usuarios",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200 OK!\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"}); // Verifica se o status code retornado é 200\r",
+											"\r",
+											"pm.test(\"Validacao de mensagem OK!\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.equal(\"Registro alterado com sucesso\");\r",
+											"});//Verifica a mensagem de Registro alterado com sucesso\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Fabiano Yuji test2\",\r\n  \"email\": \"teste_qa212121@qa.com.br\",\r\n  \"password\": \"teste123\",\r\n  \"administrador\": \"true\"\r\n}"
+								},
+								"url": {
+									"raw": "https://serverest.dev/usuarios/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"serverest",
+										"dev"
+									],
+									"path": [
+										"usuarios",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete - Deletar_usuarios",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200 OK!\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"}); // Verifica se o status code retornado é 200\r",
+											"\r",
+											"pm.test(\"Validacao de mensagem OK!\", function () {\r",
+											"    pm.expect(jsonResponse.message).to.equal(\"Registro excluído com sucesso\");\r",
+											"});//Verifica a mensagem de Registro alterado com sucesso\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://serverest.dev/usuarios/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"serverest",
+										"dev"
+									],
+									"path": [
+										"usuarios",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Buscar_usuarios_lista",
+					"item": [
+						{
+							"name": "Buscar_usuarios_lista",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200 OK!\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"}); // Verifica se o status code retornado é 200\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://serverest.dev/usuarios?nome=Fabiano",
+									"protocol": "https",
+									"host": [
+										"serverest",
+										"dev"
+									],
+									"path": [
+										"usuarios"
+									],
+									"query": [
+										{
+											"key": "_id",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "nome",
+											"value": "Fabiano"
+										},
+										{
+											"key": "email",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "administrador",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
