@@ -11,10 +11,10 @@
 ## FRONT-END:
    >No desafio de back-end foi utilizado o framework Cypress(versao 13.7.2) e o Visual studio code. 
    >Foram criados quatro testes:
-     1 - Primeiro o usuario deve se cadastrar. O site leva para login e depois clica-se em cadastrar.
-     2 - Depois de cadastrar o usuario, o proximo passo é fazer o login.
-     3 - Testar caso o email ja esteja em uso.
-     4 - Verificar caso o usuario esteja tentando acessar uma conta invalida.
+      - Primeiro o usuario deve se cadastrar. O site leva para login e depois clica-se em cadastrar.
+      - Depois de cadastrar o usuario, o proximo passo é fazer o login.
+      - Testar caso o email ja esteja em uso.
+      - Verificar caso o usuario esteja tentando acessar uma conta invalida.
       todos com o resultado PASS.
      
     O arquivo com o codigo esta em DesafioQA_3_Intern_NewModel -> Frontend_cypress_desafio -> cypress -> e2e -> Login_teste.cy.js
